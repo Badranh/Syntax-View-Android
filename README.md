@@ -73,6 +73,31 @@ setContentView(syntax_view);
 SyntaxView syntax_view = new SyntaxView(this,"#2b2b2b","#cc7832","#4a85a3","#cc7832","#6a8759");
 setContentView(syntax_view);
 ```
+
+# Set On TextChangeListener
+```
+   //on text change listener
+        syntax_view.code.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+	    		//do whatever you want
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //on text change listener
+		//do whatever you want
+                Log.d("tester",charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+		//do whatever you want
+            }
+        });
+
+```
 # Changes:
 6/25/2018:
 - Uploaded Syntax View
