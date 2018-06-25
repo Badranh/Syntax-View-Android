@@ -14,10 +14,25 @@ public class MainActivity extends AppCompatActivity {
                 activity_main);
            SyntaxView syntax_view = findViewById(R.id.syn);
 
-            syntax_view.setBgColor("#ffffff");
-            syntax_view.setPrintStatmentsColor("#931B42");
-            syntax_view.setCodeTextColor("#000000");
-            syntax_view.setRowNumbersBgColor("#ffffff");
-            syntax_view.setRowNumbersColor("#000000");
+        //this will set the color of Code Text background
+        syntax_view.setBgColor("#2b2b2b");
+        //this will set the color of strings between " "
+        syntax_view.setPrintStatmentsColor("#6a8759");
+        //this will set the default code text color other than programming keywords!
+        syntax_view.setCodeTextColor("#000000");
+        //this will set programming keywords color like String,int,for,etc...
+        syntax_view.setKeywordsColor("#cc7832");
+        //this will set the numbers color in code | ex: return 0; 0 will be colored
+        syntax_view.setNumbersColor("#4a85a3");
+        //this will set the line number view background color at left
+        syntax_view.setRowNumbersBgColor("#2b2b2b");
+        //this will set the color of numbers in the line number view at left
+        syntax_view.setRowNumbersColor("#cc7832");
+        //this will set color of Annotations like super,@Nullable,etc ....
+        syntax_view.setAnnotationsColor("#1932F3");
+        //this will set special characters color like ;
+        syntax_view.setSpecialCharsColor("#cc7832");
+
+
     }
 }
