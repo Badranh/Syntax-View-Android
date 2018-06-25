@@ -11,6 +11,8 @@ import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import java.util.regex.Pattern;
  * Created by TOSHIBA on 6/25/2018.
  */
 
-public class SyntaxView extends RelativeLayout {
+public class SyntaxView extends RelativeLayout  {
 
     private SyntaxHighlighter keywords = new SyntaxHighlighter(
             Pattern.compile(
@@ -46,7 +48,7 @@ public class SyntaxView extends RelativeLayout {
     private SyntaxHighlighter[] schemes = { keywords, numbers,special,printStatments,annotations };
 
 
-    private MaterialEditText code;
+    public MaterialEditText code;
     private TextView rows;
 
     public SyntaxView(Context context) {
@@ -92,6 +94,8 @@ public class SyntaxView extends RelativeLayout {
                      linesText = linesText + i + "\n";
                  }
                  rows.setText(linesText);
+             //    printChange(s);
+
              }
             //remove old highlighting and set new highlighting
              @Override
@@ -120,6 +124,7 @@ public class SyntaxView extends RelativeLayout {
 
 
          });
+
     }
 
 //the user will be able to change color of the view as he wishes
@@ -263,4 +268,7 @@ code.setTextColor(Color.parseColor(color));
         }
         rows.setBackgroundColor(Color.parseColor(color));
     }
+
+
+
 }

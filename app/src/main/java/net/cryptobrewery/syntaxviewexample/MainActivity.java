@@ -2,6 +2,9 @@ package net.cryptobrewery.syntaxviewexample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 
 import net.cryptobrewery.syntaxview.SyntaxView;
 
@@ -33,6 +36,23 @@ public class MainActivity extends AppCompatActivity {
         //this will set special characters color like ;
         syntax_view.setSpecialCharsColor("#cc7832");
 
+        //on text change listener
+        syntax_view.code.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //on text change listener
+                Log.d("tester",charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 }
