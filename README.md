@@ -1,5 +1,23 @@
 # Syntax-View-Android
 Beautiful Android Syntax View with line counter it will automatically highlight the code,you can design your own IDE using this view
+
+# How to add to your app 
+
+add this to your dependencies in build.gradle file
+```
+implementation 'com.github.Badranh:Syntax-View-Android:0.1.0'
+```
+Add it in your root build.gradle at the end of repositories:
+
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 # USAGE
 <b>1st way:</b>
 
@@ -50,22 +68,7 @@ setContentView(syntax_view);
 SyntaxView syntax_view = new SyntaxView(this,"#2b2b2b","#cc7832","#4a85a3","#cc7832","#6a8759");
 setContentView(syntax_view);
 ```
-# How to add to your app 
 
-add this to your dependencies in build.gradle file
-```
-implementation 'com.github.Badranh:Syntax-View-Android:0.1.0'
-```
-Add it in your root build.gradle at the end of repositories:
-
-```
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
 
 # Example
 Colors can be modified as you want
