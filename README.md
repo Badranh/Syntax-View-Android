@@ -4,7 +4,7 @@ Beautiful Android Syntax View with line counter it will automatically highlight 
 # Example
 Colors can be modified as you want
 
-![Screenshot](http://cryptobrewery.net/scn/3.png)
+![Screenshot](http://cryptobrewery.net/scn/4.png)
 
 # How to add to your app 
 
@@ -96,15 +96,25 @@ setContentView(syntax_view);
 		//do whatever you want
             }
         });
-
+```
+# Changing Font
+```
+Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");
+syntax_view.setFont(tf);
 ```
 # Changes:
-6/25/2018:
++6/25/2018:
 - Uploaded Syntax View
 - Syntax Highlighting
 - Line Number Counter
 - Color Flexibility to meet user requirements
 
++6/26/2018:
+ - added new method setFont() to change font of the code if you wish to
+ - changed the default font to a new classic font
+ - disabled autocorrect (By: MohamedElidrissi)
+ - removed unused attribute (By: MohamedElidrissi)
+ 
 # Contribute
 Next update: 
 - User will have the ability to choose a language like " C,Java,Python" So we can do a faster UI and Highlighting(feel free to implement this update if you are able to do so)
