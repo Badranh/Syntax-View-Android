@@ -77,7 +77,9 @@ public class SyntaxView extends RelativeLayout  {
         inflate(context, R.layout.syntaxview, this);
         code = findViewById(R.id.code);
         rows = findViewById(R.id.rows);
-        code.setBackgroundColor(Color.parseColor(BackgroundColor));
+       code.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+		code.setSingleLine(false);
+		code.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION); code.setBackgroundColor(Color.parseColor(BackgroundColor));
         code.addTextChangedListener(new TextWatcher() {
 
 
