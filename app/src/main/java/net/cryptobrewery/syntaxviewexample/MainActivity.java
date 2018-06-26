@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         //this will set the color of strings between " "
         syntax_view.setPrintStatmentsColor("#6a8759");
         //this will set the default code text color other than programming keywords!
-        syntax_view.setCodeTextColor("#000000");
+        syntax_view.setCodeTextColor("#ffffff");
         //this will set programming keywords color like String,int,for,etc...
         syntax_view.setKeywordsColor("#cc7832");
         //this will set the numbers color in code | ex: return 0; 0 will be colored
@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         syntax_view.setAnnotationsColor("#1932F3");
         //this will set special characters color like ;
         syntax_view.setSpecialCharsColor("#cc7832");
+        //you can change the font
+        //code:
+        // Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");
+        //syntax_view.setFont(tf);
 
         //on text change listener
         syntax_view.code.addTextChangedListener(new TextWatcher() {
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //on text change listener
+                //listen for live changes
                 Log.d("tester",charSequence.toString());
 
             }

@@ -4,7 +4,9 @@ package net.cryptobrewery.syntaxview;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -69,6 +72,7 @@ public class SyntaxView extends RelativeLayout  {
 
      private void initialize(Context context, String BackgroundColor, final String keywordsColor, final String NumberColor, final String specialCharColors, final String printStatmentsColor){
        // default/constructor color are set here
+
         setKeywordsColor(keywordsColor);
         setNumbersColor(NumberColor);
         setSpecialCharsColor(specialCharColors);
@@ -77,9 +81,12 @@ public class SyntaxView extends RelativeLayout  {
         inflate(context, R.layout.syntaxview, this);
         code = findViewById(R.id.code);
         rows = findViewById(R.id.rows);
-       code.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "progfont.ttf");
+        code.setTypeface(tf);
+        code.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 		code.setSingleLine(false);
-		code.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION); code.setBackgroundColor(Color.parseColor(BackgroundColor));
+		code.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+		code.setBackgroundColor(Color.parseColor(BackgroundColor));
         code.addTextChangedListener(new TextWatcher() {
 
 
@@ -271,6 +278,8 @@ code.setTextColor(Color.parseColor(color));
         rows.setBackgroundColor(Color.parseColor(color));
     }
 
-
+    public void setFont(Typeface tf){
+        code.setTypeface(tf);
+    }
 
 }
