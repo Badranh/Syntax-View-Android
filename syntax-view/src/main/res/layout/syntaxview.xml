@@ -29,7 +29,7 @@
                 android:paddingTop="15dp"
                 android:text="1"
                 android:textColor="#f5b800"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/code"

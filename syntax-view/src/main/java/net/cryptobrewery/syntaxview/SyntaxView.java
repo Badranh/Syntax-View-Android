@@ -87,6 +87,7 @@ public class SyntaxView extends RelativeLayout  {
 		code.setSingleLine(false);
 		code.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
 		code.setBackgroundColor(Color.parseColor(BackgroundColor));
+         rows.setTypeface(tf);
         code.addTextChangedListener(new TextWatcher() {
 
 
