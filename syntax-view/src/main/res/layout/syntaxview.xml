@@ -38,7 +38,6 @@
                 android:layout_weight="0.1"
                 android:background="#2b2b2b"
                 android:gravity="top"
-                android:inputType="textMultiLine"
                 android:paddingTop="7dp"
                 android:shadowColor="#fff"
                 android:text="//Write Your Code Here"
