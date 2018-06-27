@@ -281,6 +281,7 @@ code.setTextColor(Color.parseColor(color));
 
     public void setFont(Typeface tf){
         code.setTypeface(tf);
+        rows.setTypeface(tf);
     }
 
 }
