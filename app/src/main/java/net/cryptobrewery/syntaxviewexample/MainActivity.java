@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.
                 activity_main);
-           SyntaxView syntax_view = findViewById(R.id.syn);
+           final SyntaxView syntax_view = findViewById(R.id.syn);
 
         //this will set the color of Code Text background
         syntax_view.setBgColor("#2b2b2b");
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         //code:
         // Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");
         //syntax_view.setFont(tf);
+
+        //code Validation parenthesis this method will check code once called for one time only
+        syntax_view.checkMyCode();
 
         //on text change listener
         syntax_view.code.addTextChangedListener(new TextWatcher() {
