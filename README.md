@@ -102,6 +102,11 @@ setContentView(syntax_view);
 Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");
 syntax_view.setFont(tf);
 ```
+# Code Paranthesis Validation Method
+User can check if there is an error with the paranthesis in his code , the check will be perfomed for once only when called
+```
+syntax_view.checkMyCode();
+```
 # Changes:
 +6/25/2018:
 - Uploaded Syntax View
@@ -115,6 +120,9 @@ syntax_view.setFont(tf);
  - disabled autocorrect (By: MohamedElidrissi)
  - removed unused attribute (By: MohamedElidrissi)
  
+ +6/30/2018
+ - Added Auto Indentation
+ - Added CheckMyCode Method To Check Code Paranthesis Validity
 # Contribute
 Next update: 
 - User will have the ability to choose a language like " C,Java,Python" So we can do a faster UI and Highlighting(feel free to implement this update if you are able to do so)
