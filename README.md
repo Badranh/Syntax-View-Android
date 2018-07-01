@@ -123,6 +123,8 @@ syntax_view.checkMyCode();
  +6/30/2018
  - Added Auto Indentation
  - Added CheckMyCode Method To Check Code Paranthesis Validity
+ - Changed the old font
+ - Added a new method to change the Font
 # Contribute
 Next update: 
 - User will have the ability to choose a language like " C,Java,Python" So we can do a faster UI and Highlighting(feel free to implement this update if you are able to do so)
