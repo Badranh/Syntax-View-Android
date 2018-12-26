@@ -9,7 +9,7 @@
     <net.cryptobrewery.syntaxview.SyntaxView
         android:id="@+id/syn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </net.cryptobrewery.syntaxview.SyntaxView>
+
 </RelativeLayout>

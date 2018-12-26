@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         syntax_view.setAnnotationsColor("#1932F3");
         //this will set special characters color like ;
         syntax_view.setSpecialCharsColor("#cc7832");
+        syntax_view.setAutoIndent(true);
         //you can change the font
         //code:
         // Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");

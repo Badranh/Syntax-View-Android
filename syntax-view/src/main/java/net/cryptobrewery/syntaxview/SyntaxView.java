@@ -17,11 +17,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.rengwuxian.materialedittext.MaterialEditText;
-
 import java.util.Stack;
-import android.os.Handler;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +42,7 @@ public class SyntaxView extends RelativeLayout {
     );
     private SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations};
     private TextView rows;
+    private boolean autoIndent=false;
 
     public SyntaxView(Context context) {
         super(context);
@@ -119,15 +117,16 @@ public class SyntaxView extends RelativeLayout {
                 //if(!deleting) and there is { at the end of the text -> auto indent
                 //
 
-                char lastDiff =getLastDifference(temp2,temp1);
-                if(oldLength < newLength && (lastDiff == ';' || lastDiff == '{' ) ){
+                if(autoIndent) {
+                    char lastDiff = getLastDifference(temp2, temp1);
+                    if (oldLength < newLength && (lastDiff == ';' || lastDiff == '{')) {
 
-                    int position = code.getSelectionStart();
-                    code.getText().insert(position, "\n ");
-                    position = code.getSelectionStart();
-                    code.setSelection(position );
+                        int position = code.getSelectionStart();
+                        code.getText().insert(position, "\n ");
+                        position = code.getSelectionStart();
+                        code.setSelection(position);
+                    }
                 }
-
                 removeSpans(s, ForegroundColorSpan.class);
                 for (SyntaxHighlighter scheme : schemes) {
                     for (Matcher m = scheme.pattern.matcher(s); m.find(); ) {
@@ -365,6 +364,10 @@ public class SyntaxView extends RelativeLayout {
             }
         }
         return '.';
+    }
+
+    public void setAutoIndent(boolean val){
+        this.autoIndent = val;
     }
 }
 
