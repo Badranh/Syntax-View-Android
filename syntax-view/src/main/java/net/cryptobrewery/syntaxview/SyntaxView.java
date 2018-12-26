@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SyntaxView extends RelativeLayout {
-    public MaterialEditText code;
+    private MaterialEditText code;
     int oldLength, newLength;
     private SyntaxHighlighter keywords = new SyntaxHighlighter(
             Pattern.compile(
@@ -368,6 +368,10 @@ public class SyntaxView extends RelativeLayout {
 
     public void setAutoIndent(boolean val){
         this.autoIndent = val;
+    }
+
+    public MaterialEditText getCode() {
+        return code;
     }
 }
 

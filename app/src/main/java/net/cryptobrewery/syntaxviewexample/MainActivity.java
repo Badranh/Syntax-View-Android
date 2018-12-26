@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         syntax_view.checkMyCode();
 
         //on text change listener
-        syntax_view.code.addTextChangedListener(new TextWatcher() {
+        syntax_view.getCode().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
