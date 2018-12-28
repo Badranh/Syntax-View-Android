@@ -10,7 +10,7 @@ Colors can be modified as you want
 
 add this to your dependencies in build.gradle file
 ```
-implementation 'com.github.Badranh:Syntax-View-Android:0.1.2'
+implementation 'com.github.Badranh:Syntax-View-Android:0.1.3'
 ```
 Add it in your root build.gradle at the end of repositories:
 
@@ -125,6 +125,9 @@ syntax_view.checkMyCode();
  - Added CheckMyCode Method To Check Code Paranthesis Validity
  - Changed the old font
  - Added a new method to change the Font
+ 
+# Apps that has itegrated this library
+https://github.com/Badranh/Android-Coding-IDE-APP/tree/master?fbclid=IwAR3gHmT60QTdTBX6pwObYfmjIDvVtgxk3Bdqegaf4b4cCY7HLPs93tlJliI
 # Contribute
 Next update: 
 - User will have the ability to choose a language like " C,Java,Python" So we can do a faster UI and Highlighting(feel free to implement this update if you are able to do so)
