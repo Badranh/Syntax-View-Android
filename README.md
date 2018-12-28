@@ -127,7 +127,7 @@ syntax_view.checkMyCode();
  - Added a new method to change the Font
  
 # Apps that has itegrated this library
-https://github.com/Badranh/Android-Coding-IDE-APP/tree/master?fbclid=IwAR3gHmT60QTdTBX6pwObYfmjIDvVtgxk3Bdqegaf4b4cCY7HLPs93tlJliI
+https://github.com/Badranh/Android-Coding-IDE-APP/
 # Contribute
 Next update: 
 - User will have the ability to choose a language like " C,Java,Python" So we can do a faster UI and Highlighting(feel free to implement this update if you are able to do so)
