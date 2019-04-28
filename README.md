@@ -10,7 +10,7 @@ Colors can be modified as you want
 
 add this to your dependencies in build.gradle file
 ```
-implementation 'com.github.Badranh:Syntax-View-Android:0.1.4'
+implementation 'com.github.Badranh:Syntax-View-Android:0.1.5'
 ```
 Add it in your root build.gradle at the end of repositories:
 
