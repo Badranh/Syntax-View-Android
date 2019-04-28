@@ -9,8 +9,9 @@ import java.util.regex.Pattern;
  */
 
  class SyntaxHighlighter {
-    Pattern pattern;
-      int color;
+
+      private final Pattern pattern;
+      private int color;
 
     SyntaxHighlighter(Pattern pattern) {
         this.pattern = pattern;
@@ -18,5 +19,13 @@ import java.util.regex.Pattern;
 
     void setColor(String color){
         this.color = Color.parseColor(color);
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    Pattern getPattern() {
+        return pattern;
     }
 }

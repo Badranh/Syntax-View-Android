@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#2b2b2b"
@@ -15,7 +10,6 @@
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2b2b2b"
             android:orientation="horizontal">
 
 
@@ -27,30 +21,26 @@
                 android:background="#2b2b2b"
                 android:gravity="center_horizontal"
                 android:paddingTop="15dp"
-                android:text="1"
+                android:text="@string/_1"
                 android:textColor="#f5b800"
                 android:textSize="20sp" />
 
-            <com.rengwuxian.materialedittext.MaterialEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/code"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
                 android:background="#2b2b2b"
                 android:gravity="top"
-                android:paddingTop="7dp"
+                android:paddingTop="15dp"
                 android:shadowColor="#fff"
-                android:text="//Write Your Code Here"
+                android:text="@string/write_your_code_here"
                 android:textColor="#a9b7c6"
                 android:textColorHighlight="#fff"
                 android:textColorHint="#fff"
                 android:textColorLink="#fff"
                 android:textSize="20sp"
-                app:met_hideUnderline="true"
-                app:met_textColor="#fff" />
+                 />
 
         </LinearLayout>
     </ScrollView>
-
-</RelativeLayout>
-

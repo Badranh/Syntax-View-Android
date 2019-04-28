@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SyntaxView</string>
+    <string name="_1">1</string>
+    <string name="write_your_code_here">//Write Your Code Here</string>
 </resources>

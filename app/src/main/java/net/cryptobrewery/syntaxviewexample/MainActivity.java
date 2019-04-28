@@ -1,10 +1,11 @@
 package net.cryptobrewery.syntaxviewexample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.cryptobrewery.syntaxview.SyntaxView;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         syntax_view.setAnnotationsColor("#1932F3");
         //this will set special characters color like ;
         syntax_view.setSpecialCharsColor("#cc7832");
-        syntax_view.setAutoIndent(true);
+        syntax_view.setAutoIndent(false);
         //you can change the font
         //code:
         // Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "yourFont.ttf");

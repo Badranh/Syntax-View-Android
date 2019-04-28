@@ -14,33 +14,34 @@ import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
-import android.widget.RelativeLayout;
+import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SyntaxView extends RelativeLayout {
-    private MaterialEditText code;
-    int oldLength, newLength;
-    private SyntaxHighlighter keywords = new SyntaxHighlighter(
+public class SyntaxView extends ScrollView {
+    private EditText code;
+    private int oldLength;
+    private int newLength;
+    private final SyntaxHighlighter  keywords = new SyntaxHighlighter(
             Pattern.compile(
                     "\\b(include|package|transient|strictfp|void|char|short|int|long|double|float|const|static|volatile|byte|boolean|class|interface|native|private|protected|public|final|abstract|synchronized|enum|instanceof|assert|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|extends|implements|import|true|false|null)\\b"));
-    private SyntaxHighlighter annotations = new SyntaxHighlighter(
+    private final SyntaxHighlighter annotations = new SyntaxHighlighter(
             Pattern.compile(
                     "@Override|@Callsuper|@Nullable|@Suppress|@SuppressLint|super"));
-    private SyntaxHighlighter numbers = new SyntaxHighlighter(
+    private final SyntaxHighlighter numbers = new SyntaxHighlighter(
             Pattern.compile("(\\b(\\d*[.]?\\d+)\\b)")
     );
-    private SyntaxHighlighter special = new SyntaxHighlighter(
+    private final SyntaxHighlighter special = new SyntaxHighlighter(
             Pattern.compile("[;#]")
     );
-    private SyntaxHighlighter printStatments = new SyntaxHighlighter(
+    private final SyntaxHighlighter printStatments = new SyntaxHighlighter(
             Pattern.compile("\"(.+?)\"")
     );
-    private SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations};
+    private final SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations};
     private TextView rows;
     private boolean autoIndent=false;
 
@@ -61,19 +62,16 @@ public class SyntaxView extends RelativeLayout {
     }
 
     private void initialize(Context context, String BackgroundColor, final String keywordsColor, final String NumberColor, final String specialCharColors, final String printStatmentsColor) {
-
         // default/constructor color are set here
-        setKeywordsColor(keywordsColor);
-        setNumbersColor(NumberColor);
-        setSpecialCharsColor(specialCharColors);
-        setPrintStatmentsColor(printStatmentsColor);
+        setColor(keywords,keywordsColor);
+        setColor(numbers,NumberColor);
+        setColor(special,specialCharColors);
+        setColor(printStatments,printStatmentsColor);
         //inflate and get the helper views
         inflate(context, R.layout.syntaxview, this);
         code = findViewById(R.id.code);
         rows = findViewById(R.id.rows);
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "progfont.ttf");
-        ////test
-        ///test
         code.setTypeface(tf);
         code.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         code.setSingleLine(false);
@@ -93,17 +91,20 @@ public class SyntaxView extends RelativeLayout {
             //increment the rows view by 1 when the user moves to next line
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("tester",s.toString());
+
                 int numb_of_line = code.getLineCount();
-                String linesText = "";
+                StringBuilder linesText = new StringBuilder();
                 for (int i = 1; i <= numb_of_line; i++) {
-                    linesText = linesText + i + "\n";
+                    linesText.append(i).append("\n");
                 }
-                rows.setText(linesText);
+                rows.setText(linesText.toString());
             }
             //remove old highlighting and set new highlighting
             @Override
             public void afterTextChanged(final Editable s) {
                 temp2 = s.toString();
+
                 newLength = s.length();
                 //user can choose if he want to validate his code or not  this function will check if parenthesis is matched
                 //AUTO INDENT NEW FEATURE
@@ -124,8 +125,8 @@ public class SyntaxView extends RelativeLayout {
                 }
                 removeSpans(s, ForegroundColorSpan.class);
                 for (SyntaxHighlighter scheme : schemes) {
-                    for (Matcher m = scheme.pattern.matcher(s); m.find(); ) {
-                        s.setSpan(new ForegroundColorSpan(scheme.color),
+                    for (Matcher m = scheme.getPattern().matcher(s); m.find(); ) {
+                        s.setSpan(new ForegroundColorSpan(scheme.getColor()),
                                 m.start(),
                                 m.end(),
                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -142,156 +143,63 @@ public class SyntaxView extends RelativeLayout {
         });
 
     }
-
-
-
-    //the user will be able to change color of the view as he wishes
-    public void setBgColor(String color) throws Error {
-
+    //check string's type is color format
+    private void checkColor(String color)throws Error{
         color = color.trim();
 
         if (!color.contains("#")) {
-            throw new RuntimeException("SyntaxView Error : Invalid Color");
+            throw new Error("SyntaxView Error : Invalid Color");
         }
         if (TextUtils.isEmpty(color)) {
-            throw new RuntimeException("SyntaxView Error : Empty Color String");
-
+            throw new Error("SyntaxView Error : Empty Color String");
         }
         if (color.length() != 7) {
-            throw new RuntimeException("SyntaxView Error : Unknown Color");
-
+            throw new Error("SyntaxView Error : Unknown Color");
         }
+    }
+
+    //the user will be able to change color of the view as he wishes
+    public void setBgColor(String color) {
+        checkColor(color);
         code.setBackgroundColor(Color.parseColor(color));
     }
 
-    public void setKeywordsColor(String color) throws Error {
-        color = color.trim();
-
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-
-        }
-        keywords.setColor(color);
+    public void setKeywordsColor(String color) {
+        setColor(keywords,color);
     }
 
-    public void setNumbersColor(String color) throws Error {
-        color = color.trim();
+    public void setNumbersColor(String color) {
+        setColor(numbers,color);
 
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-
-        }
-        numbers.setColor(color);
     }
 
-    public void setSpecialCharsColor(String color) throws Error {
-        color = color.trim();
+    public void setSpecialCharsColor(String color) {
+        setColor(special,color);
 
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
-        special.setColor(color);
     }
 
-    public void setCodeTextColor(String color) throws Error {
-        color = color.trim();
-
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
+    public void setCodeTextColor(String color) {
+        checkColor(color);
         code.setTextColor(Color.parseColor(color));
     }
 
-    public void setAnnotationsColor(String color) throws Error {
-        color = color.trim();
-
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
-        annotations.setColor(color);
+    public void setAnnotationsColor(String color) {
+        setColor(annotations,color);
 
     }
 
-    public void setPrintStatmentsColor(String color) throws Error {
-        color = color.trim();
+    public void setPrintStatmentsColor(String color) {
+        setColor(printStatments,color);
 
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
-        printStatments.setColor(color);
     }
 
-    public void setRowNumbersColor(String color) throws Error {
-        color = color.trim();
-
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
+    public void setRowNumbersColor(String color) {
+        checkColor(color);
         rows.setTextColor(Color.parseColor(color));
     }
 
-    public void setRowNumbersBgColor(String color) throws Error {
-        color = color.trim();
-
-        if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
-        }
-        if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
-
-        }
-        if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
-        }
+    public void setRowNumbersBgColor(String color) {
+        checkColor(color);
         rows.setBackgroundColor(Color.parseColor(color));
     }
 
@@ -304,16 +212,16 @@ public class SyntaxView extends RelativeLayout {
         String s1 = s.toString();
         Stack stackCheck = new Stack();
         char[] valid = s1.toCharArray();
-        for (int i = 0; i < valid.length; i++) {
-            if (valid[i] == '{' || valid[i] == '(') {
-                stackCheck.push((valid[i]));
+        for (char c : valid) {
+            if (c == '{' || c == '(') {
+                stackCheck.push((c));
             }
-            if (valid[i] == '}' || valid[i] == ')') {
+            if (c == '}' || c == ')') {
                 if (stackCheck.empty()) {
                     Toast.makeText(getContext(), "Your Code Has Invalid Parenthesis", Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                    if (!matchPair((char) stackCheck.peek(), valid[i])) {
+                    if (!matchPair((char) stackCheck.peek(), c)) {
                         Toast.makeText(getContext(), "Your Code Has Invalid Parenthesis", Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -324,7 +232,6 @@ public class SyntaxView extends RelativeLayout {
         if(stackCheck.size() ==1 ){
             Toast.makeText(getContext(), "Unmatched Parenthesis", Toast.LENGTH_LONG).show();
         }
-
     }
 
     private boolean matchPair(char c1, char c2) {
@@ -332,15 +239,12 @@ public class SyntaxView extends RelativeLayout {
             return true;
         else if (c1 == '{' && c2 == '}')
             return true;
-        else if (c1 == '[' && c2 == ']')
-            return true;
-        else
-            return false;
+        else return c1 == '[' && c2 == ']';
     }
 
     public void checkMyCode(){checkValidity(code.getText());}
 
-    public char getLastDifference(String a,String b){
+    private char getLastDifference(String a,String b){
         //a is new
         char [] c1 = a.toCharArray();
         //b is old
@@ -365,8 +269,13 @@ public class SyntaxView extends RelativeLayout {
         this.autoIndent = val;
     }
 
-    public MaterialEditText getCode() {
+    public EditText getCode() {
         return code;
+    }
+
+    private void setColor(SyntaxHighlighter type,String color){
+        checkColor(color);
+        type.setColor(color);
     }
 }
 
