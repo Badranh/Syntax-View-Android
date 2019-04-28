@@ -126,7 +126,7 @@ syntax_view.checkMyCode();
  - Changed the old font
  - Added a new method to change the Font
  
-# Apps that has itegrated this library
+# Apps that has integrated this library
 Let me know if you have implemented this library in your app : hasanbadran88@gmail.com so I can list your app below :)!
 Apps:
 
