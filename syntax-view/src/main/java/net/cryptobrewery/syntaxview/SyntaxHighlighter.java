@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
     Pattern pattern;
       int color;
 
-    public SyntaxHighlighter(Pattern pattern) {
+    SyntaxHighlighter(Pattern pattern) {
         this.pattern = pattern;
     }
 
-    public void setColor(String color){
+    void setColor(String color){
         this.color = Color.parseColor(color);
     }
 }

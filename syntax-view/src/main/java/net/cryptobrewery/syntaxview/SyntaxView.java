@@ -62,8 +62,6 @@ public class SyntaxView extends RelativeLayout {
 
     private void initialize(Context context, String BackgroundColor, final String keywordsColor, final String NumberColor, final String specialCharColors, final String printStatmentsColor) {
 
-
-
         // default/constructor color are set here
         setKeywordsColor(keywordsColor);
         setNumbersColor(NumberColor);
@@ -95,8 +93,6 @@ public class SyntaxView extends RelativeLayout {
             //increment the rows view by 1 when the user moves to next line
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("tester",s.toString());
-
                 int numb_of_line = code.getLineCount();
                 String linesText = "";
                 for (int i = 1; i <= numb_of_line; i++) {
@@ -108,7 +104,6 @@ public class SyntaxView extends RelativeLayout {
             @Override
             public void afterTextChanged(final Editable s) {
                 temp2 = s.toString();
-
                 newLength = s.length();
                 //user can choose if he want to validate his code or not  this function will check if parenthesis is matched
                 //AUTO INDENT NEW FEATURE
@@ -156,14 +151,14 @@ public class SyntaxView extends RelativeLayout {
         color = color.trim();
 
         if (!color.contains("#")) {
-            throw new Error("SyntaxView Error : Invalid Color");
+            throw new RuntimeException("SyntaxView Error : Invalid Color");
         }
         if (TextUtils.isEmpty(color)) {
-            throw new Error("SyntaxView Error : Empty Color String");
+            throw new RuntimeException("SyntaxView Error : Empty Color String");
 
         }
         if (color.length() != 7) {
-            throw new Error("SyntaxView Error : Unknown Color");
+            throw new RuntimeException("SyntaxView Error : Unknown Color");
 
         }
         code.setBackgroundColor(Color.parseColor(color));
