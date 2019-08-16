@@ -4,7 +4,7 @@ Beautiful Android Syntax View with line counter it will automatically highlight 
 # Example
 Colors can be modified as you want
 
-![Screenshot](http://cryptobrewery.net/scn/4.png)
+![Screenshot](https://i.ibb.co/j5jfFx2/syntax.jpg)
 
 # How to add to your app 
 
