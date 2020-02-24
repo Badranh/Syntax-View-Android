@@ -26,6 +26,7 @@ public class SyntaxView extends ScrollView {
     private EditText code;
     private int oldLength;
     private int newLength;
+    private String language = "JAVA";
     private final SyntaxHighlighter  keywords = new SyntaxHighlighter(
             Pattern.compile(
                     "\\b(include|package|transient|strictfp|void|char|short|int|long|double|float|const|static|volatile|byte|boolean|class|interface|native|private|protected|public|final|abstract|synchronized|enum|instanceof|assert|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|extends|implements|import|true|false|null)\\b"));
@@ -276,6 +277,59 @@ public class SyntaxView extends ScrollView {
     private void setColor(SyntaxHighlighter type,String color){
         checkColor(color);
         type.setColor(color);
+    }
+
+    public void setLanguage(String newLang)
+    {
+        String upperNewLang = newLang.toUpperCase();
+
+        if(upperNewLang.compareTo(language) != 0) {
+            language = upperNewLang;
+
+            switch (language)
+            {
+                case "JAVA":
+                    keywords.setPattern(
+                            Pattern.compile(
+                                    "\\b(include|package|transient|strictfp|void|char|short|int|long|double|float|const|static|volatile|byte|boolean|class|interface|native|private|protected|public|final|abstract|synchronized|enum|instanceof|assert|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|extends|implements|import|true|false|null)\\b")
+                    );
+                    annotations.setPattern(
+                            Pattern.compile(
+                                    "@Override|@Callsuper|@Nullable|@Suppress|@SuppressLint|super|@Deprecated|@SuppressWarnings")
+                    );
+                    break;
+                case "PYTHON":
+                    // Python keywords refer to https://www.programiz.com/python-programming/keywords-identifier
+                    keywords.setPattern(
+                            Pattern.compile("\\b(class|if|else|break|return|for|while|continue|try|except|finally|import|True|False|None|del|and|as|assert|def|elif|from|global|in|is|lambda|nonlocal|not|or|pass|raise|yield|with)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "C":
+                    // C keywords refer to https://www.sitesbay.com/cpp/cpp-keywords
+                    keywords.setPattern(
+                            Pattern.compile("\\b(include|void|char|short|int|long|double|float|const|static|volatile|enum|if|else|switch|case|default|break|goto|return|for|while|do|continue|NULL|auto|extern|register|signed|sizeof|struct|typedef|union|unsigned)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "C++":
+                    // C keywords refer to https://www.sitesbay.com/cpp/cpp-keywords
+                    keywords.setPattern(
+                            Pattern.compile("\\b(include|void|char|short|int|long|double|float|const|static|volatile|enum|if|else|switch|case|default|break|goto|return|for|while|do|continue|NULL|auto|extern|register|signed|sizeof|struct|typedef|union|unsigned|bool|class|private|protected|public|new|throw|try|catch|this|true|false|asm|const_cast|delete|using|dynamic_cast|explicit|friend|inline|mutable|typeid|virtual|namespace|operator|typename|wchar_t|reinterpret_case|static_cast|template)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "JAVASCRIPT":
+                    // javaScript keywords refer to https://www.w3schools.in/javascript-tutorial/keywords/
+                    keywords.setPattern(
+                            Pattern.compile("\\b(package|transient|void|char|short|int|long|double|float|static|volatile|byte|boolean|interface|native|private|protected|public|final|abstract|synchronized|instanceof|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|implements|true|false|null|var|const|delete|function|in|yield|eval|arguments|debugger|let|typeof|with)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 
