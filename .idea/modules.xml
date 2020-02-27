@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SyntaxViewExample.iml" filepath="$PROJECT_DIR$/SyntaxViewExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Syntax-View-Android.iml" filepath="$PROJECT_DIR$/Syntax-View-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/syntax-view/syntax-view.iml" filepath="$PROJECT_DIR$/syntax-view/syntax-view.iml" />
     </modules>
