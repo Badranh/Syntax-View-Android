@@ -42,7 +42,10 @@ public class SyntaxView extends ScrollView {
     private final SyntaxHighlighter printStatments = new SyntaxHighlighter(
             Pattern.compile("\"(.+?)\"")
     );
-    private final SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations};
+    private final SyntaxHighlighter attributes = new SyntaxHighlighter(
+            Pattern.compile("")
+    );
+    private final SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations, attributes};
     private TextView rows;
     private boolean autoIndent=false;
 
@@ -68,6 +71,8 @@ public class SyntaxView extends ScrollView {
         setColor(numbers,NumberColor);
         setColor(special,specialCharColors);
         setColor(printStatments,printStatmentsColor);
+        setColor(annotations, "#80FFEC");
+        setColor(attributes, "#80FFEC");
         //inflate and get the helper views
         inflate(context, R.layout.syntaxview, this);
         code = findViewById(R.id.code);
@@ -313,6 +318,7 @@ public class SyntaxView extends ScrollView {
                     annotations.setPattern(Pattern.compile(""));
                     break;
                 case "C++":
+                case "CPP":
                     // C keywords refer to https://www.sitesbay.com/cpp/cpp-keywords
                     keywords.setPattern(
                             Pattern.compile("\\b(include|void|char|short|int|long|double|float|const|static|volatile|enum|if|else|switch|case|default|break|goto|return|for|while|do|continue|NULL|auto|extern|register|signed|sizeof|struct|typedef|union|unsigned|bool|class|private|protected|public|new|throw|try|catch|this|true|false|asm|const_cast|delete|using|dynamic_cast|explicit|friend|inline|mutable|typeid|virtual|namespace|operator|typename|wchar_t|reinterpret_case|static_cast|template)\\b")
@@ -326,10 +332,37 @@ public class SyntaxView extends ScrollView {
                     );
                     annotations.setPattern(Pattern.compile(""));
                     break;
+                case "HTML":
+                    // html keywords refer to https://www.w3schools.com/tags/ref_byfunc.asp
+                    keywords.setPattern(
+                            Pattern.compile("\\b(!DOCTYPE|!doctype|html|head|title|body|h1|h2|h3|h4|h5|h6|p|br|hr|acronym|abbr|address|b|bdi|bdo|big|blockquote|center|cite|code|del|dfn|em|font|i|ins|kbd|mark|meter|pre|progress|q|rp|rt|ruby|s|samp|small|strike|strong|sub|sup|template|time|tt|u|var|wbr|form|input|textarea|button|select|optgroup|option|label|fieldset|legend|datalist|output|frame|frameset|noframes|iframe|img|map|area|canvas|figcaption|figure|picture|svg|audio|source|track|video|a|link|nav|ul|ol|li|dir|dl|dt|dd|table|caption|th|tr|td|thead|tbody|tfoot|col|colgroup|style|div|span|header|footer|main|section|article|aside|details|dialog|summary|data|head|meta|base|basefont|script|noscript|applet|embed|object|param)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    attributes.setPattern(
+                            Pattern.compile(" (.+?)=|<!(.+?)>")
+                    );
+                    break;
+                case "CSS":
+                    // css keywords refer to https://www.w3schools.com/tags/ref_byfunc.asp
+                    keywords.setPattern(
+                            Pattern.compile("\\b(html|head|title|body|h1|h2|h3|h4|h5|h6|p|br|hr|acronym|abbr|address|b|bdi|bdo|big|blockquote|center|cite|code|del|dfn|em|font|i|ins|kbd|mark|meter|pre|progress|q|rp|rt|ruby|s|samp|small|strike|strong|sub|sup|template|time|tt|u|var|wbr|form|input|textarea|button|select|optgroup|option|label|fieldset|legend|datalist|output|frame|frameset|noframes|iframe|img|map|area|canvas|figcaption|figure|picture|svg|audio|source|track|video|a|link|nav|ul|ol|li|dir|dl|dt|dd|table|caption|th|tr|td|thead|tbody|tfoot|col|colgroup|style|div|span|header|footer|main|section|article|aside|details|dialog|summary|data|head|meta|base|basefont|script|noscript|applet|embed|object|param)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    attributes.setPattern(
+                            Pattern.compile(" (.+?):")
+                    );
+                    break;
                 default:
                     break;
             }
         }
     }
+
+    public String[] getSupportLanguage()
+    {
+        return new String[]{"Java", "C", "C++", "Python", "JavaScript", "HTML", "CSS"};
+    }
+
+
 }
 
