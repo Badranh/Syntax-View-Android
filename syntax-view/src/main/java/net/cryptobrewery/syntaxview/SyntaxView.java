@@ -121,7 +121,7 @@ public class SyntaxView extends ScrollView {
 
                 if(autoIndent) {
                     char lastDiff = getLastDifference(temp2, temp1);
-                    if (oldLength < newLength && (lastDiff == ';' || lastDiff == '{')) {
+                    if (oldLength < newLength && (lastDiff == ':' || lastDiff == '{')) {
 
                         int position = code.getSelectionStart();
                         code.getText().insert(position, "\n ");
