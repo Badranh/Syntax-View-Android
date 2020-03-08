@@ -358,7 +358,7 @@ public class SyntaxView extends ScrollView {
         }
     }
 
-    public String[] getSupportLanguage()
+    public static String[] getSupportLanguage()
     {
         return new String[]{"Java", "C", "C++", "Python", "JavaScript", "HTML", "CSS"};
     }
