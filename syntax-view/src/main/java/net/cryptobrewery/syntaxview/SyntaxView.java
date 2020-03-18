@@ -97,7 +97,7 @@ public class SyntaxView extends ScrollView {
             //increment the rows view by 1 when the user moves to next line
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("tester",s.toString());
+                Log.d("SyntaxView", "[onTextChanged] id = "+java.lang.System.identityHashCode(code)+" content = "+s.toString());
 
                 int numb_of_line = code.getLineCount();
                 StringBuilder linesText = new StringBuilder();
