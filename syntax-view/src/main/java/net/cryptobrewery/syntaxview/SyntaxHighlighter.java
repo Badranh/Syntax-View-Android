@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
  class SyntaxHighlighter {
 
-      private final Pattern pattern;
+      private Pattern pattern;
       private int color;
 
     SyntaxHighlighter(Pattern pattern) {
@@ -27,5 +27,10 @@ import java.util.regex.Pattern;
 
     Pattern getPattern() {
         return pattern;
+    }
+
+    public void setPattern(Pattern pattern)
+    {
+        this.pattern = pattern;
     }
 }

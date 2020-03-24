@@ -26,6 +26,7 @@ public class SyntaxView extends ScrollView {
     private EditText code;
     private int oldLength;
     private int newLength;
+    private String language = "JAVA";
     private final SyntaxHighlighter  keywords = new SyntaxHighlighter(
             Pattern.compile(
                     "\\b(include|package|transient|strictfp|void|char|short|int|long|double|float|const|static|volatile|byte|boolean|class|interface|native|private|protected|public|final|abstract|synchronized|enum|instanceof|assert|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|extends|implements|import|true|false|null)\\b"));
@@ -41,7 +42,10 @@ public class SyntaxView extends ScrollView {
     private final SyntaxHighlighter printStatments = new SyntaxHighlighter(
             Pattern.compile("\"(.+?)\"")
     );
-    private final SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations};
+    private final SyntaxHighlighter attributes = new SyntaxHighlighter(
+            Pattern.compile("")
+    );
+    private final SyntaxHighlighter[] schemes = {keywords, numbers, special, printStatments, annotations, attributes};
     private TextView rows;
     private boolean autoIndent=false;
 
@@ -67,6 +71,8 @@ public class SyntaxView extends ScrollView {
         setColor(numbers,NumberColor);
         setColor(special,specialCharColors);
         setColor(printStatments,printStatmentsColor);
+        setColor(annotations, "#80FFEC");
+        setColor(attributes, "#80FFEC");
         //inflate and get the helper views
         inflate(context, R.layout.syntaxview, this);
         code = findViewById(R.id.code);
@@ -91,7 +97,7 @@ public class SyntaxView extends ScrollView {
             //increment the rows view by 1 when the user moves to next line
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("tester",s.toString());
+                Log.d("SyntaxView", "[onTextChanged] id = "+java.lang.System.identityHashCode(code)+" content = "+s.toString());
 
                 int numb_of_line = code.getLineCount();
                 StringBuilder linesText = new StringBuilder();
@@ -115,7 +121,7 @@ public class SyntaxView extends ScrollView {
 
                 if(autoIndent) {
                     char lastDiff = getLastDifference(temp2, temp1);
-                    if (oldLength < newLength && (lastDiff == ';' || lastDiff == '{')) {
+                    if (oldLength < newLength && (lastDiff == ':' || lastDiff == '{')) {
 
                         int position = code.getSelectionStart();
                         code.getText().insert(position, "\n ");
@@ -277,5 +283,86 @@ public class SyntaxView extends ScrollView {
         checkColor(color);
         type.setColor(color);
     }
+
+    public void setLanguage(String newLang)
+    {
+        String upperNewLang = newLang.toUpperCase();
+
+        if(upperNewLang.compareTo(language) != 0) {
+            language = upperNewLang;
+
+            switch (language)
+            {
+                case "JAVA":
+                    keywords.setPattern(
+                            Pattern.compile(
+                                    "\\b(include|package|transient|strictfp|void|char|short|int|long|double|float|const|static|volatile|byte|boolean|class|interface|native|private|protected|public|final|abstract|synchronized|enum|instanceof|assert|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|extends|implements|import|true|false|null)\\b")
+                    );
+                    annotations.setPattern(
+                            Pattern.compile(
+                                    "@Override|@Callsuper|@Nullable|@Suppress|@SuppressLint|super|@Deprecated|@SuppressWarnings")
+                    );
+                    break;
+                case "PYTHON":
+                    // Python keywords refer to https://www.programiz.com/python-programming/keywords-identifier
+                    keywords.setPattern(
+                            Pattern.compile("\\b(class|if|else|break|return|for|while|continue|try|except|finally|import|True|False|None|del|and|as|assert|def|elif|from|global|in|is|lambda|nonlocal|not|or|pass|raise|yield|with)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "C":
+                    // C keywords refer to https://www.sitesbay.com/cpp/cpp-keywords
+                    keywords.setPattern(
+                            Pattern.compile("\\b(include|void|char|short|int|long|double|float|const|static|volatile|enum|if|else|switch|case|default|break|goto|return|for|while|do|continue|NULL|auto|extern|register|signed|sizeof|struct|typedef|union|unsigned)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "C++":
+                case "CPP":
+                    // C keywords refer to https://www.sitesbay.com/cpp/cpp-keywords
+                    keywords.setPattern(
+                            Pattern.compile("\\b(include|void|char|short|int|long|double|float|const|static|volatile|enum|if|else|switch|case|default|break|goto|return|for|while|do|continue|NULL|auto|extern|register|signed|sizeof|struct|typedef|union|unsigned|bool|class|private|protected|public|new|throw|try|catch|this|true|false|asm|const_cast|delete|using|dynamic_cast|explicit|friend|inline|mutable|typeid|virtual|namespace|operator|typename|wchar_t|reinterpret_case|static_cast|template)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "JAVASCRIPT":
+                    // javaScript keywords refer to https://www.w3schools.in/javascript-tutorial/keywords/
+                    keywords.setPattern(
+                            Pattern.compile("\\b(package|transient|void|char|short|int|long|double|float|static|volatile|byte|boolean|interface|native|private|protected|public|final|abstract|synchronized|instanceof|if|else|switch|case|default|break|goto|return|for|while|do|continue|new|throw|throws|try|catch|finally|this|implements|true|false|null|var|const|delete|function|in|yield|eval|arguments|debugger|let|typeof|with)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    break;
+                case "HTML":
+                    // html keywords refer to https://www.w3schools.com/tags/ref_byfunc.asp
+                    keywords.setPattern(
+                            Pattern.compile("\\b(!DOCTYPE|!doctype|html|head|title|body|h1|h2|h3|h4|h5|h6|p|br|hr|acronym|abbr|address|b|bdi|bdo|big|blockquote|center|cite|code|del|dfn|em|font|i|ins|kbd|mark|meter|pre|progress|q|rp|rt|ruby|s|samp|small|strike|strong|sub|sup|template|time|tt|u|var|wbr|form|input|textarea|button|select|optgroup|option|label|fieldset|legend|datalist|output|frame|frameset|noframes|iframe|img|map|area|canvas|figcaption|figure|picture|svg|audio|source|track|video|a|link|nav|ul|ol|li|dir|dl|dt|dd|table|caption|th|tr|td|thead|tbody|tfoot|col|colgroup|style|div|span|header|footer|main|section|article|aside|details|dialog|summary|data|head|meta|base|basefont|script|noscript|applet|embed|object|param)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    attributes.setPattern(
+                            Pattern.compile(" (.+?)=|<!(.+?)>")
+                    );
+                    break;
+                case "CSS":
+                    // css keywords refer to https://www.w3schools.com/tags/ref_byfunc.asp
+                    keywords.setPattern(
+                            Pattern.compile("\\b(html|head|title|body|h1|h2|h3|h4|h5|h6|p|br|hr|acronym|abbr|address|b|bdi|bdo|big|blockquote|center|cite|code|del|dfn|em|font|i|ins|kbd|mark|meter|pre|progress|q|rp|rt|ruby|s|samp|small|strike|strong|sub|sup|template|time|tt|u|var|wbr|form|input|textarea|button|select|optgroup|option|label|fieldset|legend|datalist|output|frame|frameset|noframes|iframe|img|map|area|canvas|figcaption|figure|picture|svg|audio|source|track|video|a|link|nav|ul|ol|li|dir|dl|dt|dd|table|caption|th|tr|td|thead|tbody|tfoot|col|colgroup|style|div|span|header|footer|main|section|article|aside|details|dialog|summary|data|head|meta|base|basefont|script|noscript|applet|embed|object|param)\\b")
+                    );
+                    annotations.setPattern(Pattern.compile(""));
+                    attributes.setPattern(
+                            Pattern.compile(" (.+?):")
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static String[] getSupportLanguage()
+    {
+        return new String[]{"Java", "C", "C++", "Python", "JavaScript", "HTML", "CSS"};
+    }
+
+
 }
 
